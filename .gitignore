@@ -38,3 +38,6 @@ out/
 
 ### Kotlin ###
 .kotlin
+
+# Sensitive configuration files
+src/main/resources/application-db.properties
