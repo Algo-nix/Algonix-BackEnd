@@ -1,25 +1,49 @@
+package com.algonix.config
+
+import com.algonix.security.JwtAuthenticationFilter
+import com.algonix.security.JwtTokenProvider
 import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Configuration
+import org.springframework.security.authentication.AuthenticationManager
 import org.springframework.security.config.annotation.web.builders.HttpSecurity
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity
+import org.springframework.security.config.http.SessionCreationPolicy
+import org.springframework.security.core.userdetails.UserDetailsService
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder
+import org.springframework.security.crypto.password.PasswordEncoder
 import org.springframework.security.web.SecurityFilterChain
+import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter
+import org.springframework.security.config.annotation.authentication.configuration.AuthenticationConfiguration
 
 @Configuration
 @EnableWebSecurity
-class SecurityConfig {
+class SecurityConfig(
+    private val userDetailsService: UserDetailsService,
+    private val jwtTokenProvider: JwtTokenProvider,
+    private val jwtAuthenticationFilter: JwtAuthenticationFilter
+) {
 
     @Bean
-    fun filterChain(http: HttpSecurity): SecurityFilterChain {
+    fun passwordEncoder(): PasswordEncoder {
+        return BCryptPasswordEncoder()
+    }
+
+    @Bean
+    fun authenticationManager(authenticationConfiguration: AuthenticationConfiguration): AuthenticationManager {
+        return authenticationConfiguration.authenticationManager
+    }
+
+    @Bean
+    fun securityFilterChain(http: HttpSecurity): SecurityFilterChain {
         http
-            .csrf { csrf -> csrf.disable() }  // CSRF 비활성화
-            .authorizeHttpRequests { authz ->
-                authz
-                    // Swagger UI 및 OpenAPI 경로 인증 없이 허용
-                    .requestMatchers("/swagger-ui/**", "/v3/api-docs/**", "/swagger-ui.html").permitAll()
-                    .anyRequest().permitAll()  // 모든 요청을 허용
+            .csrf { it.disable() }
+            .sessionManagement { it.sessionCreationPolicy(SessionCreationPolicy.STATELESS) }
+            .authorizeHttpRequests {
+                it.requestMatchers("/v1/auth/**").permitAll()
+                it.anyRequest().authenticated()
             }
-            .formLogin { form -> form.disable() }  // 기본 로그인 폼 비활성화
-            .httpBasic { basic -> basic.disable() }  // HTTP Basic 인증 비활성화
+            .addFilterBefore(jwtAuthenticationFilter, UsernamePasswordAuthenticationFilter::class.java)
+
         return http.build()
     }
 }
