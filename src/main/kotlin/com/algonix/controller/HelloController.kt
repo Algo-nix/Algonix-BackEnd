@@ -1,6 +1,7 @@
 package com.algonix.controller
 
 import com.algonix.util.ApiResponse
+import com.algonix.util.Result
 import com.algonix.util.ResultUtil
 import org.springframework.security.core.Authentication
 import org.springframework.http.ResponseEntity
@@ -13,8 +14,8 @@ import org.springframework.web.bind.annotation.RestController
 class HelloController {
 
     @GetMapping
-    fun hello(authentication: Authentication): ResponseEntity<ApiResponse<Any>> {
+    fun hello(authentication: Authentication): ResponseEntity<Map<String, Any>> {
         val message = "안녕하세요, ${authentication.name}님!"
-        return ResultUtil.success(message, "인사말 호출 성공")
+        return Result.ok(message);
     }
 }
