@@ -19,5 +19,16 @@ data class User(
 
     @Email
     @NotEmpty(message = "이메일은 필수입니다.")
-    val email: String
+    val email: String,
+
+    @NotEmpty(message = "닉네임은 필수입니다.")
+    val nickname: String,
+
+    @NotEmpty(message = "소속은 필수입니다.")
+    val organization: String,
+
+    @NotEmpty(message = "소속 공개 여부를 선택해 주세요.")
+    val visibility: String,  // "공개" 또는 "비공개"로 설정 가능
+
+    val statusMessage: String? = null  // 상태 메시지는 선택 사항
 )

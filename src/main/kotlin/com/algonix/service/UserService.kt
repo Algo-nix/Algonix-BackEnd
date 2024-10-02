@@ -31,14 +31,19 @@ class UserService(
             val user = User(
                 username = signupRequest.username,
                 password = passwordEncoder.encode(signupRequest.password),
-                email = signupRequest.email
+                email = signupRequest.email,
+                nickname = signupRequest.nickname,
+                organization = signupRequest.organization,
+                visibility = signupRequest.visibility,
+                statusMessage = signupRequest.statusMessage
             )
             userRepository.save(user)  // 사용자 저장
             user
         } catch (e: DataIntegrityViolationException) {
-            throw IllegalStateException("중복된 아이디 또는 이메일입니다.")  // 회원가입 중 오류 처리 (Controller에서 처리)
+            throw IllegalStateException("중복된 아이디 또는 이메일입니다.")  // 회원가입 중 오류 처리
         }
     }
+
 
     fun login(loginRequest: LoginRequest): TokenResponse? {
         return try {

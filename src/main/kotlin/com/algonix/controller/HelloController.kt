@@ -1,8 +1,6 @@
 package com.algonix.controller
 
-import com.algonix.util.ApiResponse
 import com.algonix.util.Result
-import com.algonix.util.ResultUtil
 import org.springframework.security.core.Authentication
 import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.GetMapping
