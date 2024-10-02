@@ -20,10 +20,10 @@ class UserService(
     private val jwtTokenProvider: JwtTokenProvider
 ) {
 
-    fun signup(signupRequest: SignupRequest): User? {
+    fun signup(signupRequest: SignupRequest): User {
         // 중복된 사용자 이름 또는 이메일 체크
         if (existsByUsername(signupRequest.username) || existsByEmail(signupRequest.email)) {
-            return null
+            throw IllegalArgumentException("중복된 아이디 또는 이메일입니다.")
         }
 
         return try {
@@ -40,7 +40,7 @@ class UserService(
             userRepository.save(user)  // 사용자 저장
             user
         } catch (e: DataIntegrityViolationException) {
-            throw IllegalStateException("중복된 아이디 또는 이메일입니다.")  // 회원가입 중 오류 처리
+            throw IllegalStateException("회원가입 처리 중 오류가 발생했습니다.")
         }
     }
 
