@@ -39,11 +39,13 @@ class SecurityConfig(
             .csrf { it.disable() }
             .sessionManagement { it.sessionCreationPolicy(SessionCreationPolicy.STATELESS) }
             .authorizeHttpRequests {
-                it.requestMatchers("/v1/auth/**").permitAll()
-                it.anyRequest().authenticated()
+                it.requestMatchers("/v1/auth/**").permitAll()  // 로그인 관련 경로 허용
+                it.requestMatchers("/v1/categories/**").authenticated()  // 카테고리 엔드포인트는 인증 필요
+                it.anyRequest().authenticated()  // 그 외 모든 요청은 인증 필요
             }
             .addFilterBefore(jwtAuthenticationFilter, UsernamePasswordAuthenticationFilter::class.java)
 
         return http.build()
     }
+
 }
