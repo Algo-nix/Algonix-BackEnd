@@ -2,10 +2,11 @@ package com.algonix.dto
 
 import CategoryResponseDto
 
+// 문제 응답에 사용되는 DTO
 data class ProblemResponseDto(
     val id: Long,
     val title: String,
-    val category: CategoryResponseDto,
+    val categories: List<CategoryResponseDto>,  // 여러 카테고리
     val restrictions: String,
     val timeLimit: Int,
     val memoryLimit: Int,
@@ -14,7 +15,8 @@ data class ProblemResponseDto(
     val outputDescription: String,
     val hints: String?,
     val difficulty: Int,
-    val similarProblems: List<ProblemResponseDto>, // 비슷한 문제들의 리스트
+    val similarProblems: List<SimilarProblemDto>,  // 비슷한 문제들
     val authorId: Long,
-    val examples: List<ExampleResponseDto>  // 여러 입력/출력 예제 응답용 DTO 리스트
+    val availableLanguages: List<LanguageResponseDto>,  // 사용 가능한 언어들
+    val examples: List<ExampleDto>  // 입력/출력 예제들
 )

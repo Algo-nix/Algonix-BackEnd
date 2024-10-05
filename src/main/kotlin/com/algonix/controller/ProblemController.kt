@@ -1,7 +1,6 @@
 package com.algonix.controller
 
 import com.algonix.dto.ProblemDTO
-import com.algonix.dto.ProblemResponseDto
 import com.algonix.security.UserDetailsImpl
 import com.algonix.service.ProblemService
 import com.algonix.util.Result
@@ -23,9 +22,8 @@ class ProblemController(
         return try {
             // JWT 토큰에서 사용자 ID 추출
             val authorId = (authentication.principal as UserDetailsImpl).id
-            val problemWithAuthor = problemDTO.copy(authorId = authorId)
 
-            val problemResponse = problemService.createProblem(problemWithAuthor)
+            val problemResponse = problemService.createProblem(problemDTO, authorId)
             Result.created(problemResponse)
         } catch (e: IllegalArgumentException) {
             Result.badRequest(e.message ?: "잘못된 요청입니다.")

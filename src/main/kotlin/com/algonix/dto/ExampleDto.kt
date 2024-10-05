@@ -1,6 +1,6 @@
 package com.algonix.dto
 
-data class ExampleResponseDto(
+data class ExampleDto(
     val inputExample: String,
     val outputExample: String
 )
