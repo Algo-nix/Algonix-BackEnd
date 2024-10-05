@@ -1,4 +1,6 @@
-package com.algonix.dto
+package com.algonix.dto.Problem
+
+import com.algonix.dto.Example.ExampleDto
 
 data class ProblemDTO(
     val title: String,

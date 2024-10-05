@@ -1,7 +1,6 @@
 package com.algonix.controller
 
-import com.algonix.dto.LanguageRequestDto
-import com.algonix.dto.LanguageResponseDto
+import com.algonix.dto.AvailableLanguage.LanguageRequestDto
 import com.algonix.service.AvailableLanguageService
 import com.algonix.util.Result
 import org.springframework.http.ResponseEntity

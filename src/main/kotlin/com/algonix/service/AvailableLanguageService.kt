@@ -1,7 +1,7 @@
 package com.algonix.service
 
-import com.algonix.dto.LanguageRequestDto
-import com.algonix.dto.LanguageResponseDto
+import com.algonix.dto.AvailableLanguage.LanguageRequestDto
+import com.algonix.dto.AvailableLanguage.LanguageResponseDto
 import com.algonix.model.AvailableLanguage
 import com.algonix.repository.AvailableLanguageRepository
 import org.springframework.stereotype.Service

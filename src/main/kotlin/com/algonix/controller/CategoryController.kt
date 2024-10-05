@@ -1,6 +1,6 @@
 package com.algonix.controller
 
-import com.algonix.dto.CategoryDto
+import com.algonix.dto.Category.CategoryRequestDto
 import com.algonix.service.CategoryService
 import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.*
@@ -13,9 +13,9 @@ class CategoryController(
 ) {
 
     @PostMapping
-    fun createCategory(@RequestBody categoryDto: CategoryDto): ResponseEntity<Map<String, Any>> {
+    fun createCategory(@RequestBody categoryRequestDto: CategoryRequestDto): ResponseEntity<Map<String, Any>> {
         return try {
-            val category = categoryService.createCategory(categoryDto)
+            val category = categoryService.createCategory(categoryRequestDto)
             Result.created(category)
         } catch (e: IllegalArgumentException) {
             Result.conflict(e.message ?: "잘못된 요청입니다.")

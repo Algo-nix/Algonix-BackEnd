@@ -1,6 +1,6 @@
 package com.algonix.controller
 
-import com.algonix.dto.ProblemDTO
+import com.algonix.dto.Problem.ProblemDTO
 import com.algonix.security.UserDetailsImpl
 import com.algonix.service.ProblemService
 import com.algonix.util.Result

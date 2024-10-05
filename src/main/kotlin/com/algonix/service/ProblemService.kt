@@ -1,7 +1,10 @@
 package com.algonix.service
 
-import CategoryResponseDto
-import com.algonix.dto.*
+import com.algonix.dto.Category.CategoryResponseDto
+import com.algonix.dto.AvailableLanguage.LanguageResponseDto
+import com.algonix.dto.Example.ExampleDto
+import com.algonix.dto.Problem.ProblemDTO
+import com.algonix.dto.Problem.ProblemResponseDto
 import com.algonix.model.Example
 import com.algonix.model.Problem
 import com.algonix.repository.AvailableLanguageRepository

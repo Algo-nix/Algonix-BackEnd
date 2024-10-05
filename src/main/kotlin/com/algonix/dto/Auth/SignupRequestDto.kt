@@ -1,9 +1,9 @@
-package com.algonix.dto
+package com.algonix.dto.Auth
 
 import jakarta.validation.constraints.Email
 import jakarta.validation.constraints.NotEmpty
 
-data class SignupRequest(
+data class SignupRequestDto(
     @NotEmpty(message = "아이디는 필수입니다.")
     val username: String,
 

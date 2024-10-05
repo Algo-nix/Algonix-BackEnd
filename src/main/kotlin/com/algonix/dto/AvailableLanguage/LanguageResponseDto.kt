@@ -1,4 +1,4 @@
-package com.algonix.dto
+package com.algonix.dto.AvailableLanguage
 
 data class LanguageResponseDto(
     val id: Long,

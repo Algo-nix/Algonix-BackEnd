@@ -1,6 +1,6 @@
 package com.algonix.service
 
-import com.algonix.dto.CategoryDto
+import com.algonix.dto.Category.CategoryRequestDto
 import com.algonix.model.Category
 import com.algonix.repository.CategoryRepository
 import com.algonix.util.Result
@@ -14,8 +14,8 @@ class CategoryService(
 ) {
 
     @Transactional
-    fun createCategory(categoryDto: CategoryDto): Category {
-        val name = categoryDto.name
+    fun createCategory(categoryRequestDto: CategoryRequestDto): Category {
+        val name = categoryRequestDto.name
 
         // 중복된 이름 체크
         if (categoryRepository.existsByName(name)) {

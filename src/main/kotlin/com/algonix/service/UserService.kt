@@ -1,7 +1,7 @@
 package com.algonix.service
 
-import com.algonix.dto.LoginRequest
-import com.algonix.dto.SignupRequest
+import com.algonix.dto.Auth.LoginRequestDto
+import com.algonix.dto.Auth.SignupRequestDto
 import com.algonix.model.User
 import com.algonix.repository.UserRepository
 import com.algonix.security.JwtTokenProvider
@@ -20,22 +20,22 @@ class UserService(
     private val jwtTokenProvider: JwtTokenProvider
 ) {
 
-    fun signup(signupRequest: SignupRequest): User {
+    fun signup(signupRequestDto: SignupRequestDto): User {
         // 중복된 사용자 이름 또는 이메일 체크
-        if (existsByUsername(signupRequest.username) || existsByEmail(signupRequest.email)) {
+        if (existsByUsername(signupRequestDto.username) || existsByEmail(signupRequestDto.email)) {
             throw IllegalArgumentException("중복된 아이디 또는 이메일입니다.")
         }
 
         return try {
             // 사용자 생성 및 비밀번호 암호화
             val user = User(
-                username = signupRequest.username,
-                password = passwordEncoder.encode(signupRequest.password),
-                email = signupRequest.email,
-                nickname = signupRequest.nickname,
-                organization = signupRequest.organization,
-                visibility = signupRequest.visibility,
-                statusMessage = signupRequest.statusMessage
+                username = signupRequestDto.username,
+                password = passwordEncoder.encode(signupRequestDto.password),
+                email = signupRequestDto.email,
+                nickname = signupRequestDto.nickname,
+                organization = signupRequestDto.organization,
+                visibility = signupRequestDto.visibility,
+                statusMessage = signupRequestDto.statusMessage
             )
             userRepository.save(user)  // 사용자 저장
             user
@@ -45,11 +45,11 @@ class UserService(
     }
 
 
-    fun login(loginRequest: LoginRequest): TokenResponse? {
+    fun login(loginRequestDto: LoginRequestDto): TokenResponse? {
         return try {
             // 사용자 인증
             val authentication = authenticationManager.authenticate(
-                UsernamePasswordAuthenticationToken(loginRequest.username, loginRequest.password)
+                UsernamePasswordAuthenticationToken(loginRequestDto.username, loginRequestDto.password)
             )
             // 인증 정보 설정
             SecurityContextHolder.getContext().authentication = authentication
