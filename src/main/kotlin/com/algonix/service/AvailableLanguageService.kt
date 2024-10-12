@@ -20,7 +20,8 @@ class AvailableLanguageService(
             compileCommand = languageRequestDto.compileCommand,
             executeCommand = languageRequestDto.executeCommand,
             version = languageRequestDto.version,
-            exampleCode = languageRequestDto.exampleCode
+            exampleCode = languageRequestDto.exampleCode,
+            executeFileName = languageRequestDto.executeFileName
         )
 
         // 언어 저장

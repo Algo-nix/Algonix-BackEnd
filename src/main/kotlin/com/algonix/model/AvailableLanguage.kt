@@ -21,6 +21,9 @@ data class AvailableLanguage(
     @Column(nullable = false)
     val version: String,  // 컴파일러 버전
 
+    @Column(nullable = false)
+    val executeFileName: String, // 소스코드 저장 파일 명 (접미사)
+
     @Lob
     @Column(nullable = false)
     val exampleCode: String  // 예제 코드

@@ -5,5 +5,6 @@ data class LanguageRequestDto(
     val compileCommand: String,
     val executeCommand: String,
     val version: String,
-    val exampleCode: String
+    val exampleCode: String,
+    val executeFileName: String
 )
