@@ -10,6 +10,9 @@ import com.algonix.util.Docker
 import org.springframework.stereotype.Service
 import org.springframework.transaction.annotation.Transactional
 
+/**
+ * TODO: Python을 제외한 다른 언어(C, Java, C++, C#, JS(NodeJS), Go, Kotlin) 실행 테스트 해야 함
+ */
 @Service
 class SubmitCodeService(
     private val problemRepository: ProblemRepository,
@@ -32,6 +35,10 @@ class SubmitCodeService(
             problem = submitCodeRequestDto.problem
         )
 
+
+        /**
+         * TODO: 실행 결과 값 return 받은 뒤 TestCase와 일치하는지, 시간 초과가 발생했는지, 메모리 초과가 발생했는지 검증 로직 추가 해야 함
+         */
         val savedSubmitCode = submitCodeRepository.save(submitCode)
 
         val docker = Docker()

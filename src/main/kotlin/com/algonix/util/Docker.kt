@@ -20,6 +20,7 @@ class Docker {
      * @return Docker 컨테이너의 출력 결과
      *
      * TODO: 테스트 진행을 위해 Python만 실행되도록 HardCoding 되어 있어 이를 수정해야 함
+     * TODO: 시간 초과, 메모리 초과 검증 로직 추가 해야 함
      */
     fun runContainerWithInput(imageName: String, input: String, code: String, codeNumber: Long): String {
         val dockerDir = "D:/$codeNumber" // 새로운 경로 구조 반영
