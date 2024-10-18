@@ -6,5 +6,6 @@ enum class SubmitStatus {
     COMPILE_ERROR,
     TIMEOUT_ERROR,
     MEMORY_ERROR,
-    CORRECT
+    CORRECT,
+    INCORRECT
 }

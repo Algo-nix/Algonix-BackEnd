@@ -48,7 +48,8 @@ class AvailableLanguageService(
             compileCommand = language.compileCommand,
             executeCommand = language.executeCommand,
             version = language.version,
-            exampleCode = language.exampleCode
+            exampleCode = language.exampleCode,
+            executeFileName = language.executeFileName
         )
     }
 }

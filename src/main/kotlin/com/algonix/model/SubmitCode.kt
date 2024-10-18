@@ -24,7 +24,7 @@ data class SubmitCode(
 	val code: String, // 제출 코드
 
 	@Column(nullable = false)
-	val status: SubmitStatus, // 제출 상태
+	var status: SubmitStatus, // 제출 상태
 
 	@Column(nullable = false)
 	@CreationTimestamp

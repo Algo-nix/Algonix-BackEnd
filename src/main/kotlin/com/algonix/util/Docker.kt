@@ -22,11 +22,11 @@ class Docker {
      * TODO: 테스트 진행을 위해 Python만 실행되도록 HardCoding 되어 있어 이를 수정해야 함
      * TODO: 시간 초과, 메모리 초과 검증 로직 추가 해야 함
      */
-    fun runContainerWithInput(imageName: String, input: String, code: String, codeNumber: Long): String {
+    fun runContainerWithInput(imageName: String, input: String, code: String, codeNumber: Long, filename: String, executeCommand: String): String {
         val dockerDir = "D:/$codeNumber" // 새로운 경로 구조 반영
 
-        // Python 소스코드 파일 저장
-        val sourceFile = File("$dockerDir/main.py")
+        // 소스코드 파일 저장
+        val sourceFile = File("$dockerDir/${filename}")
         sourceFile.writeText(code)
 
         // Docker 이미지 빌드
@@ -47,7 +47,7 @@ class Docker {
         val payload = """
     {
         "Image": "$imageName",
-        "Cmd": ["/bin/sh", "-c", "printf \"$sanitizedInput\" | python3 ./main.py"],
+        "Cmd": ["/bin/sh", "-c", "printf \"$sanitizedInput\" | $executeCommand"],
         "AttachStdout": true,
         "AttachStderr": true,
         "Tty": true,
@@ -74,7 +74,8 @@ class Docker {
 
         // 종료 후 로그 가져오기
         val logs = fetchLogs(containerId)
-        return if (logs.isNotBlank()) "Docker 실행 결과: $logs" else "Docker 실행 결과: (빈값)"
+//        return if (logs.isNotBlank()) "Docker 실행 결과: $logs" else "Docker 실행 결과: (빈값)"
+        return logs
     }
 
     private fun buildDockerImage(dockerDir: String, imageName: String) {
